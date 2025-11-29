@@ -20,6 +20,8 @@ export const Tab = ({ _tabs}: TabProps) =>
     const [active, setActive] = useState(0) // index of active tab
     const [tabs, setTabs] = useState<TabItem[]>([])
     const [tabStyles, setTabStyles] = useState<any>({})
+    const [notification, setNotification] = useState('')
+    const [alpha, setAlpha] = useState(0)
 
     useEffect(() => {
         setTabs(_tabs)
@@ -27,12 +29,32 @@ export const Tab = ({ _tabs}: TabProps) =>
         setTabStyles(tabStyless[getCurrentTheme()])
     }, [])
 
+    const hideNotification = (alphaVal: number) => {
+        if (alphaVal <= 0) {
+            setNotification('')
+            return
+        }
+        setAlpha(alphaVal)
+        setTimeout(() => hideNotification(alphaVal-0.04), 50)
+    }
+
+    const displayNotification = (noti: string, alphaVal: number = 1) => {
+        setNotification(noti)
+        setAlpha(alphaVal)
+        setTimeout(() => hideNotification(alphaVal), 3000)
+    }
+
     return (
         <div>
+            { notification !== '' &&
+                <div style={{ position: 'fixed', marginTop: '2%', marginLeft: '75%', width: '20%', height: '20%', borderStyle: 'solid', borderColor: `rgba(0,0,0,${alpha})`, backgroundColor: `rgba(220,220,220,${alpha})`, justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                    <p style={{color: `rgba(0,0,0,${alpha})`}}>{ notification }</p>
+                </div>
+            }
             <div style={tabStyles.headerBackground}>{tabs.map(({ Component, title }, i) => <div style={tabStyles.buttonFrame} key={i}><button onClick={() => setActive(i)}>{title}</button></div>)}</div>
             <div style={{display: 'block'}}>
                 {tabs.map(({ Component, title }, i) => {
-                    if (i === active) return <Component key={i}></Component>
+                    if (i === active) return <Component key={i} notify={displayNotification}></Component>
                     return <div></div>
                 })}
             </div>

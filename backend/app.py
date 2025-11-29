@@ -81,8 +81,22 @@ def get_history_file():
 def get_log_data():
     log, ok = rh.get_log()
     if ok:
-        return return_response('ok', log.decode('ASCII').replace('\r', '').split('\n'))
-    return return_response('err', 'cant load log')
+        return return_response('ok', log)
+    return return_response('err', ['cant load log'])
 
+@app.route('/api/restart')
+def restart_iot_device():
+    if rh.restart_iot():
+        return return_response('ok', '')
+    return return_response('err', 'something went wrong')
+
+@app.route('/api/sahko/<page>')
+def get_electricity_price(page):
+    res = requests.get(f'https://www.porssisahkoa.fi/api/Prices/GetPrices?mode={page}')
+    if res.status_code == 200:
+        return res.json()
+    print(res)
+    return "err"
+ 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)

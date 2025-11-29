@@ -1,9 +1,6 @@
 import React from "react";
 import { PumpCode } from "../util/types/PumpCode";
-
-interface ValueCardProps{
-    pumpCode: PumpCode
-}
+import { ValueCardProps } from "./types/ValueCardProps";
 
 // TODO, print out card like information for each code
 

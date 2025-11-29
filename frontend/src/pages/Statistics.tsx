@@ -3,14 +3,13 @@ import React, {useState, useEffect} from "react";
 import { BarChart } from "../components/BarChart";
 import { LineChart } from "../components/LineChart";
 import { getCodeType } from "../util/getCodeType";
+import { historyData } from "../util/types/historyData";
+import { PageProps } from "../util/types/PageProps";
 
-interface historyData {
-    [id: string]: number[]
-}
 
 type chartType = 'bar' | 'line' | 'pie' | 'none'
 
-export const Statistics = () => {
+export const Statistics: React.FC<PageProps>  = ({notify}) => {
 
     const [values, setValues] = useState<historyData>({})
     const [status, setStatus] = useState('Loading...')

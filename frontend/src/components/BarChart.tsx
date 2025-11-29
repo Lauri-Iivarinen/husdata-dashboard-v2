@@ -1,24 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { BarChartProps } from './types/BartChartProps'
+import { Column } from './types/Column'
 
-interface BarChartProps {
-    keys: number[],
-    values: number[]
-    toolTipScale?: number
-    graphHeight: number
-}
 
-interface Column {
-    width: number
-    height: number
-    x: number
-    y: number
-    value: string | number | null
-    padding: string
-    timeStamp: string
-    coords?: string
-}
-
-export const BarChart = ({ keys, values, graphHeight, toolTipScale = 1 }: BarChartProps) => {
+export const BarChart = ({ keys, values, graphHeight, toolTipScale = 1, rounding = 1 }: BarChartProps) => {
     
     // TODO: NEGATIVE VALUES ARE AN ISSUE
 
@@ -129,7 +114,7 @@ export const BarChart = ({ keys, values, graphHeight, toolTipScale = 1 }: BarCha
                     y: zero - barHeight,
                     width: barWidth,
                     height: barHeight,
-                    value: (val / toolTipScale).toFixed(1),
+                    value: (val / toolTipScale).toFixed(rounding),
                     timeStamp: convertToTimeStamp(keys[valInd]),
                     padding: `${0}`,
                     coords: coords
@@ -197,7 +182,7 @@ export const BarChart = ({ keys, values, graphHeight, toolTipScale = 1 }: BarCha
                         <svg>
                         <polygon points={triangulate(activeBar)} stroke={'black'} fill={'white'}></polygon>
                         {/*<rect x={activeBar.x - (50-activeBar.width) / 2} y={graphHeight-60} height={50} width={50} style={{fill: 'rgb(180,180,180)'}}></rect> */}
-                            <text x={activeBar.x + activeBar.width / 2 - 12} y={graphHeight - 40}>{activeBar.value}</text>
+                            <text x={activeBar.x + activeBar.width / 2 - 11 - rounding*1.5} y={graphHeight - 40}>{activeBar.value}</text>
                             <text x={activeBar.x + activeBar.width / 2 - 18} y={graphHeight - 25}>{activeBar.timeStamp.split(' ')[1]}</text>  
                         </svg>
                     }

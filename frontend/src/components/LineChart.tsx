@@ -1,24 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { BarChartProps } from './types/BartChartProps'
+import { Column } from './types/Column'
 
-interface BarChartProps {
-    keys: number[],
-    values: number[]
-    toolTipScale?: number
-    graphHeight: number
-}
-
-interface Column {
-    width: number
-    height: number
-    x: number
-    y: number
-    value: string | number | null
-    padding: string
-    timeStamp: string
-    coords?: string
-    prevX?: number
-    prevY?: number
-}
 
 export const LineChart = ({ keys, values, graphHeight, toolTipScale = 1 }: BarChartProps) => {
     

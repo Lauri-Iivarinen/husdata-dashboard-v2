@@ -13,10 +13,15 @@ class request_handler:
     
     def get_log(self):
         if len(self.url) == 0:
-            return ('OFFLINE LOG TBD', True)
-
+            return (['OFFLINE LOG TBD'], True)
         response = requests.get(f'{self.url}/log')
-        return (response.content, response.status_code == 200)
+        return (response.content.decode('ASCII').replace('\r', '').split('\n'), response.status_code == 200)
+    
+    def restart_iot(self):
+        if len(self.url) == 0:
+            return True
+        response = requests.get(f'{self.url}/cli?cmd=reset')
+        return response.status_code == 200
 
     def set_pump_value(self, code, value):
         if len(self.url) == 0:

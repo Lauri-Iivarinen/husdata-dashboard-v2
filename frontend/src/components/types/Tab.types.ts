@@ -1,6 +1,8 @@
+import { PageProps } from "../../util/types/PageProps";
+
 export interface TabItem
 {
-    Component: React.FC,
+    Component: React.FC<PageProps>,
     title: string
 }
 

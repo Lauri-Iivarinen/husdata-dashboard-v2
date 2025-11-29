@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
+import { PageProps } from "../util/types/PageProps";
 import { PumpCode } from "../util/types/PumpCode";
 
-export const ListData = () => {
+export const ListData: React.FC<PageProps>  = ({notify}) => {
     const [values, setValues] = useState<PumpCode[]>([])
     const [status, setStatus] = useState('Loading...')
     const [overlayVisible, setOverlayVisible] = useState(false)
@@ -24,6 +25,11 @@ export const ListData = () => {
         const val = modValue.replace(',', '.')
         const response = await fetch(`http://localhost:8080/api/setData/${modKey}?value=${val}`)
         const result = await response.json()
+        if (result.status === 'ok') {
+            setOverlayVisible(false)
+            notify('updated successfully')
+            fetchPumpData()
+        }
         console.log(result)
     }
 
