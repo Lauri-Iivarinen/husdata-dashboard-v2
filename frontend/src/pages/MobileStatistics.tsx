@@ -1,12 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { AverageListing } from "../components/AverageListing";
-
 import { ChartListing } from "../components/ChartListing";
-import { CustomButton } from "../components/CustomButton";
-import { Tab } from "../components/Tab";
 import { backendUrl } from "../util/backendUrl";
-
-import { codeToName, getCodeType } from "../util/getCodeType";
 import { historyData } from "../util/types/historyData";
 import { PageProps } from "../util/types/PageProps";
 
@@ -54,7 +49,7 @@ export const MobileStatistics: React.FC<PageProps>  = ({notify}) => {
                 </div>
             </div>
             <div style={{ width: '100%', marginLeft: '1%', marginRight: '1%', borderStyle: 'solid', padding: '1rem', borderColor: 'rgba(0,0,0,0.3)', marginTop: '2%' }}>
-                {activeTab === 'averages' ? <AverageListing values={values} /> : <ChartListing width={30} height={200} values={values} /> }
+                {activeTab === 'averages' ? <AverageListing values={values} /> : <ChartListing width={20} height={150} values={values} /> }
             </div>
             
         </div>

@@ -155,7 +155,7 @@ export const MobileDashboard: React.FC<PageProps> = ({notify}) =>
                 
             </div>
             <div style={{ marginTop: '7%', width: '100%' }}>
-                <BarChart leftPadding={30} keys={electricityTs} values={electricityVals} graphHeight={200} toolTipScale={1} rounding={2}></BarChart>
+                <BarChart leftPadding={30} keys={electricityTs} values={electricityVals} graphHeight={150} toolTipScale={1} rounding={2}></BarChart>
                 <div style={{marginLeft: '1%', textAlign: 'center'}}>
                     <a style={{color: 'black'}} href="https://www.porssisahkoa.fi/" target="_blank">Electricity (c/kWh)</a>
                 </div>
