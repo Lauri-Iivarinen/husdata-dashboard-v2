@@ -14,7 +14,7 @@ from util.utility import convert_history_data, real_to_raw_value
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=['http://localhost:3000*'])
+CORS(app, origins=['*'])
 dh = database_handler(os.getenv('HISTORY_DEST'))
 rh = request_handler(os.getenv('HUSDATA_URL'))
 

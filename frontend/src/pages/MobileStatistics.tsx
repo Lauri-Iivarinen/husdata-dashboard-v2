@@ -4,6 +4,7 @@ import { AverageListing } from "../components/AverageListing";
 import { ChartListing } from "../components/ChartListing";
 import { CustomButton } from "../components/CustomButton";
 import { Tab } from "../components/Tab";
+import { backendUrl } from "../util/backendUrl";
 
 import { codeToName, getCodeType } from "../util/getCodeType";
 import { historyData } from "../util/types/historyData";
@@ -20,7 +21,7 @@ export const MobileStatistics: React.FC<PageProps>  = ({notify}) => {
     
     const fetchPumpData = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/getHistory')
+            const response = await fetch(`${backendUrl}/api/getHistory`)
             const result: historyData = await response.json()
             setStatus('')
             setValues(result)

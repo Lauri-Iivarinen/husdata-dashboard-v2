@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { CustomButton } from "../components/CustomButton";
+import { backendUrl } from "../util/backendUrl";
 import { LogResponse } from "../util/types/LogResponse";
 import { PageProps } from "../util/types/PageProps";
 import { RebootResponse } from "../util/types/RebootResponse";
@@ -13,7 +14,7 @@ export const Settings: React.FC<PageProps>  = ({notify}) =>
 
     const getLog = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/getLog')
+            const response = await fetch(`${backendUrl}/api/getLog`)
             const result: LogResponse = await response.json()
             setStatus('')
             setLogs(result['msg'])
@@ -25,7 +26,7 @@ export const Settings: React.FC<PageProps>  = ({notify}) =>
     const checkRebootStatus = async (logs: string[] = []) => {
         setLogs(['Rebooting...', ...logs])
         try {
-            const response = await fetch('http://localhost:8080/api/getLog')
+            const response = await fetch(`${backendUrl}/api/getLog`)
             const result: LogResponse = await response.json()
             if (result.status === 'ok') {
                 setStatus('')
@@ -38,7 +39,7 @@ export const Settings: React.FC<PageProps>  = ({notify}) =>
 
     const initiateReboot = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/restart')
+            const response = await fetch(`${backendUrl}/api/restart`)
             const result: RebootResponse = await response.json()
             if (result.status === 'ok') {
                 setLogs(['Rebooting...'])

@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { AverageListing } from "../components/AverageListing";
-
 import { ChartListing } from "../components/ChartListing";
-
-import { codeToName, getCodeType } from "../util/getCodeType";
+import { backendUrl } from "../util/backendUrl";
 import { historyData } from "../util/types/historyData";
 import { PageProps } from "../util/types/PageProps";
 
@@ -17,7 +15,7 @@ export const Statistics: React.FC<PageProps>  = ({notify}) => {
     
     const fetchPumpData = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/getHistory')
+            const response = await fetch(`${backendUrl}/api/getHistory`)
             const result: historyData = await response.json()
             setStatus('')
             setValues(result)

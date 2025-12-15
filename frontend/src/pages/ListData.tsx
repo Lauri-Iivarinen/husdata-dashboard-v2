@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { CustomButton } from "../components/CustomButton";
+import { backendUrl } from "../util/backendUrl";
 import { PageProps } from "../util/types/PageProps";
 import { PumpCode } from "../util/types/PumpCode";
 
@@ -12,7 +13,7 @@ export const ListData: React.FC<PageProps>  = ({notify}) => {
 
     const fetchPumpData = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/getData')
+            const response = await fetch(`${backendUrl}/api/getData`)
             const result: PumpCode[] = await response.json()
             //console.log(result)
             setValues(result)
@@ -24,7 +25,7 @@ export const ListData: React.FC<PageProps>  = ({notify}) => {
 
     const uploadNewValue = async () => {
         const val = modValue.replace(',', '.')
-        const response = await fetch(`http://localhost:8080/api/setData/${modKey}?value=${val}`)
+        const response = await fetch(`${backendUrl}/api/setData/${modKey}?value=${val}`)
         const result = await response.json()
         if (result.status === 'ok') {
             setOverlayVisible(false)

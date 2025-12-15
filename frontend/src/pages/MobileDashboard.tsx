@@ -5,6 +5,7 @@ import { BarChart } from '../components/BarChart'
 import { CustomButton } from '../components/CustomButton'
 import { GraphDataPoint } from '../components/types/GraphDataPoint'
 import { ValueCard } from '../components/ValueCard'
+import { backendUrl } from '../util/backendUrl'
 import { ElectricityPrices } from '../util/types/ElectricityPrices'
 import { PageProps } from '../util/types/PageProps'
 import { PumpCode } from '../util/types/PumpCode'
@@ -23,7 +24,7 @@ export const MobileDashboard: React.FC<PageProps> = ({notify}) =>
 
     const fetchPumpData = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/getData')
+            const response = await fetch('${backendUrl}/api/getData')
             const result: PumpCode[] = await response.json()
             //console.log(result)
             setValues(result)
@@ -41,9 +42,9 @@ export const MobileDashboard: React.FC<PageProps> = ({notify}) =>
     // Turns out the data cannot be fetched...
     const fetchElectricityPrice = async () => {
         try {
-            const responseToday = await fetch('http://localhost:8080/api/sahko/1')
+            const responseToday = await fetch(`${backendUrl}/api/sahko/1`)
             const resultToday: ElectricityPrices = await responseToday.json()
-            const responseTomorrow = await fetch('http://localhost:8080/api/sahko/2')
+            const responseTomorrow = await fetch(`${backendUrl}/api/sahko/2`)
             const resultTomorrow: ElectricityPrices = await responseTomorrow.json()
 
             const pricelist: GraphDataPoint[] = [...resultToday.hour, ...resultTomorrow.hour].map(value => {
@@ -87,7 +88,7 @@ export const MobileDashboard: React.FC<PageProps> = ({notify}) =>
 
     const saveNewSetpoint = async () => {
         const val = sliderValue
-        const response = await fetch(`http://localhost:8080/api/setData/0107?value=${val}`)
+        const response = await fetch(`${backendUrl}/api/setData/0107?value=${val}`)
         const result = await response.json()
         console.log(result)
         if (result.status === 'ok') {
