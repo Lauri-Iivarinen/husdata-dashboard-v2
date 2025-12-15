@@ -97,6 +97,11 @@ def get_electricity_price(page):
         return res.json()
     print(res)
     return "err"
+
+@app.route('/api/updatelog')
+def get_update_log():
+    update = 'Added new update popup notification (this one)'
+    return update
  
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
