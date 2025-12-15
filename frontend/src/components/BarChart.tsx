@@ -3,7 +3,7 @@ import { BarChartProps } from './types/BartChartProps'
 import { Column } from './types/Column'
 
 
-export const BarChart = ({ keys, values, graphHeight, toolTipScale = 1, rounding = 1 }: BarChartProps) => {
+export const BarChart = ({ keys, values, graphHeight, toolTipScale = 1, rounding = 1, leftPadding = 100 }: BarChartProps) => {
     
     // TODO: NEGATIVE VALUES ARE AN ISSUE
 
@@ -31,7 +31,6 @@ export const BarChart = ({ keys, values, graphHeight, toolTipScale = 1, rounding
     const [hoverInd, setHoverInd] = useState<number>(-1)
     const [activeBar, setActiveBar] = useState<null | Column>(null)
     const bottomPadding = 80
-    const leftPadding = 100
 
     const generateHorizontalLines = (max: number, zero: number, negative = false) => {
         const rangeList: Column[] = []

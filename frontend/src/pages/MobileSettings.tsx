@@ -6,7 +6,7 @@ import { PageProps } from "../util/types/PageProps";
 import { RebootResponse } from "../util/types/RebootResponse";
 
 
-export const Settings: React.FC<PageProps>  = ({notify}) =>
+export const MobileSettings: React.FC<PageProps>  = ({notify}) =>
 {
     const [logs, setLogs] = useState<string[]>([])
     const [status, setStatus] = useState('loading')
@@ -65,15 +65,16 @@ export const Settings: React.FC<PageProps>  = ({notify}) =>
                     paddingLeft: '1%',
                     borderStyle: 'solid',
                     borderRadius: '1rem',
-                    width: '50%',
+                    width: '90%',
                     height: 300,
-                    overflow: 'scroll'
+                    overflow: 'scroll',
+                    marginLeft: '2%'
                 }}>
                     {logs.map((log, key) => <p key={key} style={{margin: 1, fontFamily: 'monospace'}}>{log}</p>)}
                 </div>
             </div>
-            <div>
-                <CustomButton onClick={() => initiateReboot()} text="Reboot H60 Gateway" />
+            <div style={{marginTop: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <CustomButton height='5rem' width='70%' onClick={() => initiateReboot()} text="Reboot H60 Gateway" />
             </div>
         </div>
     )

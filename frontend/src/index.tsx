@@ -1,23 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Dashboard } from './pages/Dashboard';
-import {Tab} from './components/Tab'
 import reportWebVitals from './reportWebVitals';
-import { Settings } from './pages/Settings';
-import { ListData } from './pages/ListData';
-import { Statistics } from './pages/Statistics';
+import { MediaQuery } from './pages/MediaQuery';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Tab _tabs={[
-      { Component: Dashboard, title: 'Dashboard' },
-      { Component: ListData, title: 'All data' },
-      { Component: Statistics, title: 'Statistics' },
-      { Component: Settings, title: 'Settings' }
-    ]}></Tab>
+    <div style={{ margin: 0, fontFamily: "Montserrat" }}>
+      <MediaQuery></MediaQuery>
+    </div>
   </React.StrictMode>
 );
 

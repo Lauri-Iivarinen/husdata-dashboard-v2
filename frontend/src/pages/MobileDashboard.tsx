@@ -9,7 +9,7 @@ import { ElectricityPrices } from '../util/types/ElectricityPrices'
 import { PageProps } from '../util/types/PageProps'
 import { PumpCode } from '../util/types/PumpCode'
 
-export const Dashboard: React.FC<PageProps> = ({notify}) =>
+export const MobileDashboard: React.FC<PageProps> = ({notify}) =>
 {
     const [values, setValues] = useState<PumpCode[]>([])
     const [status, setStatus] = useState('Loading...')
@@ -110,26 +110,35 @@ export const Dashboard: React.FC<PageProps> = ({notify}) =>
 
     return (
         <div style={{marginBottom: '3rem'}}>
-            <p>Dashboard</p>
-            <div>
-                <CustomButton onClick={() => setFilterVisible(!filterVisible)} text={filterVisible ? 'Close Filters' : 'Open Filters'}/>
+            <div style={{ width: '100%' }}>
+                <div style={{position: filterVisible ? 'sticky' : 'static', top: filterVisible ? 72 : 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: filterVisible ? 0 : 2}}>
+                    <CustomButton width='70%' height={'4rem'} onClick={() => setFilterVisible(!filterVisible)} text={filterVisible ? 'Close Filters' : 'Open Filters'} />
+                </div>
                 {filterVisible &&
                     <div style={{display: 'flex', flexWrap: 'wrap'}}>
-                    {values.map((value, key) => <div key={key} style={{borderStyle: 'solid', margin: '0.3rem', padding: '0.2rem'}}><input checked={filteredValues.includes(value.name)} onChange={() => refreshFilter(value.name)} type="checkbox" /> {value.name}</div>)}
+                    {values.map((value, key) => <div
+                        key={key}
+                        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '45%', height: '5rem', borderStyle: 'solid', margin: '0.3rem', padding: '0.2rem' }}
+                        onClick={() => refreshFilter(value.name)}
+                        >
+                        <input
+                            checked={filteredValues.includes(value.name)}
+                            onChange={() => refreshFilter(value.name)}
+                            type="checkbox" /> {value.name}</div>)}
                     </div>
                 }
             </div>
             <div style={{display: 'flex', flexWrap: 'wrap', width: '100%'}}>
                 {values.map((value, key) => {
-                    if (filteredValues.includes(value.name)) return <ValueCard key={key} pumpCode={value}></ValueCard>
+                    if (filteredValues.includes(value.name)) return <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '50%'}}><ValueCard key={key} pumpCode={value}></ValueCard></div>
                 })}
             </div>
-            <div style={{display: 'flex', borderStyle: 'solid', padding: '1%'}}>
-                <div style={{ width: '50%' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '1%', padding: '1%', borderStyle: 'solid', borderColor: 'rgb(200,200,200)'}}>
+                <div style={{ width: '100%'}}>
                     <h3 style={{textAlign: 'center'}}>Heating Setpoint</h3>
                     <p style={{textAlign: 'center'}}>{sliderValue / 10}</p>
                     <label>17.0</label>
-                    <input type="range" style={{width: '90%'}} min="170" max="270" value={sliderValue} onChange={(e) => setSliderValue(Math.round(Number(e.target.value)))}></input>
+                    <input type="range" style={{width: '80%'}} min="170" max="270" value={sliderValue} onChange={(e) => setSliderValue(Math.round(Number(e.target.value)))}></input>
                     <label>27.0</label>
                     {heatingSetpoint !== sliderValue &&
                         <div style={{}}>
@@ -142,11 +151,12 @@ export const Dashboard: React.FC<PageProps> = ({notify}) =>
                         </div>
                     }
                 </div>
-                <div style={{ width: '50%' }}>
-                    <BarChart keys={electricityTs} values={electricityVals} graphHeight={300} toolTipScale={1} rounding={2}></BarChart>
-                    <div style={{marginLeft: '10%', textAlign: 'center'}}>
-                        <a style={{color: 'black'}} href="https://www.porssisahkoa.fi/" target="_blank">Electricity (c/kWh)</a>
-                    </div>
+                
+            </div>
+            <div style={{ marginTop: '7%', width: '100%' }}>
+                <BarChart leftPadding={30} keys={electricityTs} values={electricityVals} graphHeight={200} toolTipScale={1} rounding={2}></BarChart>
+                <div style={{marginLeft: '1%', textAlign: 'center'}}>
+                    <a style={{color: 'black'}} href="https://www.porssisahkoa.fi/" target="_blank">Electricity (c/kWh)</a>
                 </div>
             </div>
             

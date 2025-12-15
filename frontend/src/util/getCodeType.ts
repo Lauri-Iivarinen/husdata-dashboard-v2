@@ -53,7 +53,7 @@ const VALUE_TYPE_GROUPS: any = {
     'Time Hours': 'time'
 }
 
-type ValueTypes = 'bool' | 'temp' | 'percent' | 'num' | 'time' | 'bool' | 'N/A'
+type ValueTypes = 'bool' | 'temp' | 'percent' | 'num' | 'time' | 'N/A'
 
 export const getCodeType  = (code: string): ValueTypes =>  {
     const codeType = CODE_DEFINITIONS.find(v => v.code === code)
@@ -61,4 +61,10 @@ export const getCodeType  = (code: string): ValueTypes =>  {
     //if (codeType.valueType === 'Number') return 'num'
     if (Object.keys(VALUE_TYPE_GROUPS).includes(codeType.valueType)) return VALUE_TYPE_GROUPS[codeType.valueType]
     return 'N/A'
+}
+
+export const codeToName = (code: string) => {
+    const c = CODE_DEFINITIONS.find(v => v.code === code)
+
+    return c === undefined ? code : c.name
 }

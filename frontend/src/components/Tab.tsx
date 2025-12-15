@@ -6,8 +6,8 @@ import {getCurrentTheme} from '../util/themeHandler'
 
 const tabStyless = {
     light: {
-        headerBackground: { display: 'flex', justifyContent: 'center', backgroundColor: 'rgb(250,150,100)' },
-        buttonFrame: { padding: '1rem' }
+        headerBackground: { display: 'flex', justifyContent: 'center', backgroundColor: 'rgb(100,150,200)', height: '4rem' },
+        buttonFrame: { marginLeft: '0.2rem', marginRight: '0.2rem' }
     },
     dark: {
         headerBackground: { display: 'flex', justifyContent: 'center', backgroundColor: 'rgb(100,100,100)' },
@@ -22,6 +22,7 @@ export const Tab = ({ _tabs}: TabProps) =>
     const [tabStyles, setTabStyles] = useState<any>({})
     const [notification, setNotification] = useState('')
     const [alpha, setAlpha] = useState(0)
+    const [hightlightTitle, setHightlightTitle] = useState('')
 
     useEffect(() => {
         setTabs(_tabs)
@@ -51,7 +52,15 @@ export const Tab = ({ _tabs}: TabProps) =>
                     <p style={{color: `rgba(0,0,0,${alpha})`}}>{ notification }</p>
                 </div>
             }
-            <div style={tabStyles.headerBackground}>{tabs.map(({ Component, title }, i) => <div style={tabStyles.buttonFrame} key={i}><button onClick={() => setActive(i)}>{title}</button></div>)}</div>
+            <div style={tabStyles.headerBackground}>{tabs.map(({ Component, title }, i) => <div style={tabStyles.buttonFrame} key={i}>
+                <button
+                    onClick={() => setActive(i)}
+                    onMouseEnter={() => setHightlightTitle(title)}
+                    onMouseLeave={() => setHightlightTitle('')}
+                    style={{textDecoration: active === i ? 'underline' : 'none', borderStyle: 'none', fontSize: '16px', paddingBottom: hightlightTitle === title ? '7px' : '0px', color: hightlightTitle === title || active === i ? 'white' : 'black', backgroundColor: hightlightTitle === title ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0)', cursor: 'pointer', height: '100%'}}
+                >{title}</button>
+                </div>)}
+            </div>
             <div style={{display: 'block'}}>
                 {tabs.map(({ Component, title }, i) => {
                     if (i === active) return <Component key={i} notify={displayNotification}></Component>

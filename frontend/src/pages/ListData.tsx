@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import { CustomButton } from "../components/CustomButton";
 import { PageProps } from "../util/types/PageProps";
 import { PumpCode } from "../util/types/PumpCode";
 
@@ -47,17 +48,16 @@ export const ListData: React.FC<PageProps>  = ({notify}) => {
     return (
         <div>
             {overlayVisible &&
-                <div style={{ position: 'fixed', width: '100%', height: '100%', backgroundColor: 'rgba(200,200,200, 0.6)', justifyContent: 'center', alignItems: 'center', display: 'flex' }} onClick={() => setOverlayVisible(false)}>
-                    <div onClick={(e) => e.stopPropagation()} style={{ position: 'fixed', width: '60%', height: '60%', backgroundColor: 'rgb(255,255,255)'}}>
-                        <p>Update</p>
+                <div style={{ top: 0, position: 'fixed', width: '100%', height: '100%', backgroundColor: 'rgba(200,200,200, 0.6)', justifyContent: 'center', alignItems: 'center', display: 'flex' }} onClick={() => setOverlayVisible(false)}>
+                    <div onClick={(e) => e.stopPropagation()} style={{ position: 'fixed', paddingLeft: '5%', width: '60%', height: '60%', backgroundColor: 'rgb(255,255,255)'}}>
+                        <h4>Update</h4>
                         <p>{modKey}</p>
                     <input value={modValue} onChange={(e) => setModValue(e.target.value)}></input>
-                    <div><button onClick={() => uploadNewValue()}>SAVE</button></div>
-                        
+                    <div style={{marginTop: '5%', width: '70%'}}><CustomButton width='70%' onClick={() => uploadNewValue()} text="SAVE" /></div>
                     </div>
                 </div>
             }
-            <p>All data</p>
+            <h3>All data</h3>
             <div>
                 <table style={{ borderCollapse: 'collapse', marginBottom: '5rem'}}>
                     <thead>
@@ -76,7 +76,7 @@ export const ListData: React.FC<PageProps>  = ({notify}) => {
                                 <td>{value.value}</td>
                                 <td>{value.type}</td><td>
                                 { !['Temp Sensor', 'Percent usage', 'Status', 'Time Hours', 'Number'].includes(value.type) &&
-                                    <button style={{width: '100%'}} onClick={() => openUpdateValue(value.code, value.value)}>Change</button>
+                                    <CustomButton width="100%" onClick={() => openUpdateValue(value.code, value.value)} text="Change" />
                                 }
                                 </td>
                             </tr>

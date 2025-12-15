@@ -4,4 +4,5 @@ export interface BarChartProps {
     toolTipScale?: number
     graphHeight: number
     rounding?: number
+    leftPadding?: number
 }
