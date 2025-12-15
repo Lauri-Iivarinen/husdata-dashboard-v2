@@ -2,14 +2,10 @@ import React, {useState} from "react"
 import { codeToName, getCodeType } from "../util/getCodeType"
 import { historyData } from "../util/types/historyData"
 import { CustomButton } from "./CustomButton"
+import { DataListingProps } from "./types/DataListingProps"
 
-export interface AverageListingProps {
-    values: historyData,
-    width?: number,
-    height?: number
-}
 
-export const AverageListing = ({ values }: AverageListingProps) => {
+export const AverageListing = ({ values }: DataListingProps) => {
     
     const [averageList, setAverageList] = useState<string[]>([])
 

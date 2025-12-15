@@ -3,7 +3,7 @@ import { BarChartProps } from './types/BartChartProps'
 import { Column } from './types/Column'
 
 
-export const BarChart = ({ keys, values, graphHeight, toolTipScale = 1, rounding = 1, leftPadding = 100 }: BarChartProps) => {
+export const BarChart = ({ keys, values, graphHeight, toolTipScale = 1, rounding = 1, leftPadding = 100, widthMultiplier = 2.5 }: BarChartProps) => {
     
     // TODO: NEGATIVE VALUES ARE AN ISSUE
 
@@ -81,7 +81,7 @@ export const BarChart = ({ keys, values, graphHeight, toolTipScale = 1, rounding
         const barList: Column[] = []
         
         const columns = keys.length * 2 + 1
-        const chartWidth = graphHeight * 2.5
+        const chartWidth = graphHeight * widthMultiplier
         const barWidth = ( chartWidth - leftPadding ) / columns // Single bar width, every other "bar" actually shows data, rest are gaps
         const max = getMaxValue(values)
         const min = getMinValue(values)
@@ -137,17 +137,17 @@ export const BarChart = ({ keys, values, graphHeight, toolTipScale = 1, rounding
     return (
         <div style={{margin: '1%'}}>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <svg height={graphHeight} width={graphHeight * 2.5 + 10} xmlns="http://www.w3.org/2000/svg" style={{ borderStyle: 'none' }}>
+                <svg height={graphHeight} width={graphHeight * widthMultiplier + 10} xmlns="http://www.w3.org/2000/svg" style={{ borderStyle: 'none' }}>
                     {range.map((line, key) =>
-                        <line key={key} x1={line.x} y1={line.y} x2={graphHeight * 2.5} y2={line.y} style={{  stroke: line.value === 0 ? 'rgb(0,0,0)' :'rgb(200,200,200)' }} />
+                        <line key={key} x1={line.x} y1={line.y} x2={graphHeight * widthMultiplier} y2={line.y} style={{  stroke: line.value === 0 ? 'rgb(0,0,0)' :'rgb(200,200,200)' }} />
                     )}
                     {range.map((line, key) => <text key={key} x={line.x - line.width * 2} y={line.y + 5}>{line.value}</text>)}
                     {bars.length > 2 &&
                         <svg>
                             <text x={leftPadding} y={graphHeight - bottomPadding / 2}>{bars[0].timeStamp.split(' ')[0]}</text>
                             <text x={leftPadding} y={graphHeight - bottomPadding/2+15}>{bars[0].timeStamp.split(' ')[1]}</text>
-                            <text x={graphHeight * 2.5 - 80} y={graphHeight - bottomPadding / 2}>{bars[bars.length-1].timeStamp.split(' ')[0]}</text>
-                            <text x={graphHeight * 2.5 - 45} y={graphHeight - bottomPadding/2+15}>{bars[bars.length-1].timeStamp.split(' ')[1]}</text>
+                            <text x={graphHeight * widthMultiplier - 80} y={graphHeight - bottomPadding / 2}>{bars[bars.length-1].timeStamp.split(' ')[0]}</text>
+                            <text x={graphHeight * widthMultiplier - 45} y={graphHeight - bottomPadding/2+15}>{bars[bars.length-1].timeStamp.split(' ')[1]}</text>
                         </svg>
                     }
                     {bars.map((bar, key) =>
@@ -172,7 +172,7 @@ export const BarChart = ({ keys, values, graphHeight, toolTipScale = 1, rounding
                     <line
                         x1={leftPadding}
                         y1={graphHeight - bottomPadding}
-                        x2={graphHeight * 2.5}
+                        x2={graphHeight * widthMultiplier}
                         y2={graphHeight-bottomPadding}
                         style={{ stroke: 'black', width: 2 }}
                     />

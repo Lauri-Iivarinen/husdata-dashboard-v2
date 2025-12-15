@@ -5,4 +5,5 @@ export interface BarChartProps {
     graphHeight: number
     rounding?: number
     leftPadding?: number
+    widthMultiplier?: number
 }

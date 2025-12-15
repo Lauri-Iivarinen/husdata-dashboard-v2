@@ -3,9 +3,9 @@ import { CustomButton } from "../components/CustomButton";
 import { LineChart } from "../components/LineChart";
 import { BarChart } from "../components/BarChart";
 import { codeToName, getCodeType } from "../util/getCodeType";
-import { AverageListingProps } from "./AverageListing";
+import { DataListingProps } from "./types/DataListingProps";
 
-export const ChartListing = ({values, width, height}: AverageListingProps) => {
+export const ChartListing = ({values, width, height, chartWidthMultiplier}: DataListingProps) => {
     
     const [chartList, setChartList] = useState<string[][]>([])
 
@@ -40,10 +40,10 @@ export const ChartListing = ({values, width, height}: AverageListingProps) => {
                         })}
                     </select>
                     {code[1] === 'bar' && code[0].length > 0 &&
-                        <BarChart leftPadding={width ? width : 100} keys={values['timestamps']} values={values[code[0]].map(v => getValueRange(v, code[0]))} toolTipScale={1} graphHeight={height ? height : 400} />
+                        <BarChart widthMultiplier={chartWidthMultiplier} leftPadding={width ? width : 100} keys={values['timestamps']} values={values[code[0]].map(v => getValueRange(v, code[0]))} toolTipScale={1} graphHeight={height ? height : 400} />
                     }
                     {code[1] === 'line' && code[0].length > 0 &&
-                        <LineChart keys={values['timestamps']} values={values[code[0]].map(v => getValueRange(v, code[0]))} toolTipScale={1} graphHeight={height ? height : 400} />
+                        <LineChart widthMultiplier={chartWidthMultiplier} keys={values['timestamps']} values={values[code[0]].map(v => getValueRange(v, code[0]))} toolTipScale={1} graphHeight={height ? height : 400} />
                     }
                     {code[1] === 'pie' && code[0].length > 0 &&
                         <p>WIP lol</p>
