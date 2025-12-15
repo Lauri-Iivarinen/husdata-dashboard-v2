@@ -134,8 +134,6 @@ export const MobileDashboard: React.FC<PageProps> = ({notify}) =>
                     if (filteredValues.includes(value.name)) return <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '50%'}}><ValueCard key={key} pumpCode={value}></ValueCard></div>
                 })}
             </div>
-            <h2>test</h2>
-            <h2>test2</h2>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '1%', padding: '1%', borderStyle: 'solid', borderColor: 'rgb(200,200,200)'}}>
                 <div style={{ width: '100%'}}>
                     <h3 style={{textAlign: 'center'}}>Heating Setpoint</h3>
