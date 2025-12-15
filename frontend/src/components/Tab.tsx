@@ -61,7 +61,7 @@ export const Tab = ({ _tabs}: TabProps) =>
                 >{title}</button>
                 </div>)}
             </div>
-            <div style={{display: 'block'}}>
+            <div style={{marginLeft: '1%', display: 'block'}}>
                 {tabs.map(({ Component, title }, i) => {
                     if (i === active) return <Component key={i} notify={displayNotification}></Component>
                     return <div></div>

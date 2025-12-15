@@ -24,7 +24,7 @@ export const MobileDashboard: React.FC<PageProps> = ({notify}) =>
 
     const fetchPumpData = async () => {
         try {
-            const response = await fetch('${backendUrl}/api/getData')
+            const response = await fetch(`${backendUrl}/api/getData`)
             const result: PumpCode[] = await response.json()
             //console.log(result)
             setValues(result)
