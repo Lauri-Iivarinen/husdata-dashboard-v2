@@ -142,9 +142,9 @@ export const MobileDashboard: React.FC<PageProps> = ({notify}) =>
                 <div style={{ width: '100%'}}>
                     <h3 style={{textAlign: 'center'}}>Heating Setpoint</h3>
                     <p style={{textAlign: 'center'}}>{sliderValue / 10}</p>
-                    <label>17.0</label>
-                    <input type="range" style={{width: '80%'}} min="170" max="270" value={sliderValue} onChange={(e) => setSliderValue(Math.round(Number(e.target.value)))}></input>
-                    <label>27.0</label>
+                    <label>1.0</label>
+                    <input type="range" style={{width: '80%'}} min="10" max="50" value={sliderValue} onChange={(e) => setSliderValue(Math.round(Number(e.target.value)))}></input>
+                    <label>5.0</label>
                     {heatingSetpoint !== sliderValue &&
                         <div style={{}}>
                             <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
