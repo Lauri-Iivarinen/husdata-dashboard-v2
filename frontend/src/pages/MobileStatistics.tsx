@@ -48,8 +48,8 @@ export const MobileStatistics: React.FC<PageProps>  = ({notify}) => {
                     <p>Charts</p>
                 </div>
             </div>
-            <div style={{ width: '100%', marginLeft: '1%', marginRight: '1%', borderStyle: 'solid', padding: '1rem', borderColor: 'rgba(0,0,0,0.3)', marginTop: '2%' }}>
-                {activeTab === 'averages' ? <AverageListing values={values} /> : <ChartListing width={20} height={185} chartWidthMultiplier={2} values={values} /> }
+            <div style={{ width: '94%', marginLeft: '1%', marginRight: '1%', borderStyle: 'solid', padding: '1rem', borderColor: 'rgba(0,0,0,0.3)', marginTop: '2%' }}>
+                {activeTab === 'averages' ? <AverageListing values={values} /> : <ChartListing width={20} height={185} chartWidthMultiplier={1.8} values={values} /> }
             </div>
             
         </div>

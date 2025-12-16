@@ -64,17 +64,20 @@ def get_update_history():
 # Returns history data
 @app.route('/api/getHistory')
 def get_history_file():
-    data = dh.get_full_history()
-    dct = {}
-    for row in data:
-        row_dict = {}
-        key,values = row.split('=')
-        for pair in values.split(';'):
-            k,v = pair.split('|')
-            row_dict[k] = v
-        dct[key] = row_dict
-    dt = convert_history_data(dct)
-    return json.dumps(dt)
+    try:
+        data = dh.get_full_history()
+        dct = {}
+        for row in data:
+            row_dict = {}
+            key,values = row.split('=')
+            for pair in values.split(';'):
+                k,v = pair.split('|')
+                row_dict[k] = v
+            dct[key] = row_dict
+        dt = convert_history_data(dct)
+        return json.dumps(dt)
+    except:
+        return {}
 
 # Returns logfile from pump, mby useless
 @app.route('/api/getLog')
