@@ -103,7 +103,7 @@ def get_electricity_price(page):
 
 @app.route('/api/updatelog')
 def get_update_log():
-    update = 'Added new update popup notification (this one)'
+    update = 'Heating setpoint slider changed to be Heating curve instead'
     return update
  
 if __name__ == '__main__':

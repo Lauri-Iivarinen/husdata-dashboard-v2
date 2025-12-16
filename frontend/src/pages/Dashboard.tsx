@@ -28,7 +28,7 @@ export const Dashboard: React.FC<PageProps> = ({notify}) =>
             const result: PumpCode[] = await response.json()
             //console.log(result)
             setValues(result)
-            const setpoint = result.find(v => v.code === '0107')
+            const setpoint = result.find(v => v.code === '2205')
             if (setpoint !== undefined) {
                 setHeatingSetpoint(setpoint.raw_value)
                 setSliderValue(setpoint.raw_value)
@@ -129,9 +129,9 @@ export const Dashboard: React.FC<PageProps> = ({notify}) =>
                 <div style={{ width: '50%' }}>
                     <h3 style={{textAlign: 'center'}}>Heating Setpoint</h3>
                     <p style={{textAlign: 'center'}}>{sliderValue / 10}</p>
-                    <label>17.0</label>
-                    <input type="range" style={{width: '90%'}} min="170" max="270" value={sliderValue} onChange={(e) => setSliderValue(Math.round(Number(e.target.value)))}></input>
-                    <label>27.0</label>
+                    <label>1</label>
+                    <input type="range" style={{width: '90%'}} min="10" max="50" value={sliderValue} onChange={(e) => setSliderValue(Math.round(Number(e.target.value)))}></input>
+                    <label>5</label>
                     {heatingSetpoint !== sliderValue &&
                         <div style={{}}>
                             <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
