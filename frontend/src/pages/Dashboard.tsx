@@ -21,14 +21,16 @@ export const Dashboard: React.FC<PageProps> = ({notify}) =>
 
     const [electricityTs, setElectricityTs] = useState<number[]>([])
     const [electricityVals, setElectricityVals] = useState<number[]>([])
+    const setpointCode = '2205'
 
     const fetchPumpData = async () => {
         try {
             const response = await fetch(`${backendUrl}/api/getData`)
             const result: PumpCode[] = await response.json()
             //console.log(result)
+            
             setValues(result)
-            const setpoint = result.find(v => v.code === '2205')
+            const setpoint = result.find(v => v.code === setpointCode)
             if (setpoint !== undefined) {
                 setHeatingSetpoint(setpoint.raw_value)
                 setSliderValue(setpoint.raw_value)
@@ -88,12 +90,14 @@ export const Dashboard: React.FC<PageProps> = ({notify}) =>
 
     const saveNewSetpoint = async () => {
         const val = sliderValue
-        const response = await fetch(`${backendUrl}/api/setData/0107?value=${val}`)
+        const response = await fetch(`${backendUrl}/api/setData/${setpointCode}?value=${val}`)
         const result = await response.json()
         console.log(result)
         if (result.status === 'ok') {
             notify('updated successfully')
             fetchPumpData()
+        } else {
+            notify('Something went wrong')
         }
     }
 
