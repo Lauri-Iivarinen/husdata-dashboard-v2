@@ -120,7 +120,7 @@ export const MobileTab = ({ _tabs}: TabProps) =>
                 </div>
             }
             {menuOpen && <div style={{height: '70px'}}/>}
-            <div style={{ display: 'block' }}>
+            <div style={{ display: 'block', width: '100%' }}>
                 {tabs.map(({ Component, title }, i) => {
                     if (i === active) return <Component key={i} notify={displayNotification}></Component>
                     return <div></div>

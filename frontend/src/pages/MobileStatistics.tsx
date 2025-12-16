@@ -33,7 +33,7 @@ export const MobileStatistics: React.FC<PageProps>  = ({notify}) => {
     if (status.length > 0) return <p>{status}</p>
 
     return (
-        <div style={{ paddingTop: '1%' }}>
+        <div style={{ width: '100%', paddingTop: '1%' }}>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <div
                     style={{ backgroundColor: activeTab === 'averages' ? 'rgb(200,200,200)' : 'white', height: '4rem', textAlign: 'center', width: '45%', marginLeft: '2%', marginRight: '2%', borderBottomStyle: 'solid'}}
