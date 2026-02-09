@@ -1,9 +1,11 @@
+from copyreg import constructor
 from flask import Flask, render_template, request
 import requests
 import json
 from classes.database_handler import database_handler
 from classes.pump_code import pump_code
 from classes.request_handler import request_handler
+from classes.logger import logger
 from dotenv import load_dotenv
 from flask_cors import CORS
 import os
@@ -17,6 +19,7 @@ app = Flask(__name__)
 CORS(app, origins=['*'])
 dh = database_handler(os.getenv('HISTORY_DEST'))
 rh = request_handler(os.getenv('HUSDATA_URL'))
+log = logger('logfile.log')
 
 def return_response(status: str, msg: str = ''):
     res = {}
@@ -55,11 +58,14 @@ def update_data_value(code):
 # Refresh history data, add new row and remove oldest
 @app.route("/api/updateHistory")
 def get_update_history():
-    data = rh.get_pump_data()
-    formatted = list(map(lambda x: x.csv_format(), data))
-    if dh.add_history_row(";".join(formatted)):
-        return return_response('ok')
-    return return_response('err')
+    try:
+        data = rh.get_pump_data()
+        formatted = list(map(lambda x: x.csv_format(), data))
+        if dh.add_history_row(";".join(formatted)):
+            return return_response('ok')
+    except Exception as e:
+        log.error(e)
+        return return_response('err')
 
 # Returns history data
 @app.route('/api/getHistory')
@@ -76,7 +82,8 @@ def get_history_file():
             dct[key] = row_dict
         dt = convert_history_data(dct)
         return json.dumps(dt)
-    except:
+    except Exception as e:
+        log.error(e)
         return {}
 
 # Returns logfile from pump, mby useless
@@ -103,8 +110,18 @@ def get_electricity_price(page):
 
 @app.route('/api/updatelog')
 def get_update_log():
-    update = 'Heating setpoint slider changed to be Heating curve instead'
+    update = 'Added system loggin and error handling to statistics'
     return update
+
+@app.route('/system/log')
+def get_sys_log():
+    try:
+        return log.get_log()
+    except Exception as e:
+        print(e)
+        return "Error loading log"
  
 if __name__ == '__main__':
+    log.log('Spinning up services.')
     app.run(host='0.0.0.0', port=8080)
+log.log('Shutting down.')
