@@ -19,7 +19,7 @@ app = Flask(__name__)
 CORS(app, origins=['*'])
 dh = database_handler(os.getenv('HISTORY_DEST'))
 rh = request_handler(os.getenv('HUSDATA_URL'))
-log = logger('logfile.log')
+log = logger('logfile_14092026.log')
 
 def return_response(status: str, msg: str = ''):
     res = {}
@@ -110,7 +110,7 @@ def get_electricity_price(page):
 
 @app.route('/api/updatelog')
 def get_update_log():
-    update = 'Added system loggin and error handling to statistics'
+    update = 'Started new logging cycle for backend.'
     return update
 
 @app.route('/system/log')
